@@ -5,7 +5,12 @@ class Settings:
         """Initialize the game's settings."""
         self.screen_width = 1200
         self.screen_height = 800
-        # self.bg_color = (230, 230, 230)
+        self.bg_color = (230, 230, 230)
+
+        # Ship settings
+        self.ship_speed = 5
 
         # EXERCISE 12-1
-        self.bg_color = (115, 178, 255)
+        # self.bg_color = (115, 178, 255)
+
+
