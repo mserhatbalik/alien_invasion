@@ -18,6 +18,7 @@ class AlienInvasion:
         # We will work with this property later.
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
+        self.screen_rect = self.screen.get_rect()
         ### FULLSCREEN SETTINGS ###
         # self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         # self.settings.screen_width = self.screen.get_rect().width
@@ -36,13 +37,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
-
-            # Get rid of bullets that have disappeared
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            print(len(self.bullets))
-
+            self._update_bullets()
             self._update_screen()
             # Set the framerate to 60. It effectively sets a "sleep" time to compensate for fast computers. It waits if the code above in the loop executes fast.
             self.clock.tick(60)
@@ -72,8 +67,16 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= self.screen_rect.top:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
