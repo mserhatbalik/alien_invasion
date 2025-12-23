@@ -41,6 +41,7 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
             # Set the framerate to 60. It effectively sets a "sleep" time to compensate for fast computers. It waits if the code above in the loop executes fast.
             self.clock.tick(60)
@@ -80,6 +81,10 @@ class AlienInvasion:
             if bullet.rect.bottom <= self.screen_rect.top:
                 self.bullets.remove(bullet)
         print(len(self.bullets))
+
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet"""
+        self.aliens.update()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
@@ -123,6 +128,8 @@ class AlienInvasion:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+
+
 
 if __name__ == '__main__':
     # Make a game instance and run the game.
