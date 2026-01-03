@@ -47,7 +47,6 @@ class AlienInvasion:
         # Create the Play button
         self.play_button = Button(self, "Play")
 
-
     def run_game(self):
         """Start the main loop for the game."""
         while True:
@@ -200,6 +199,7 @@ class AlienInvasion:
             self.ship.center_ship()
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
         # Pause
         sleep(0.5)
@@ -214,9 +214,8 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """Start the game when the play clicks play button"""
-        if self.play_button.rect.collidepoint(mouse_pos):
-            self.game_active = True
-
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.game_active:
             # Reset the game statistics
             self.stats.reset_stats()
             self.game_active = True
@@ -228,6 +227,9 @@ class AlienInvasion:
             # Create a new fleet and center the ship.
             self._create_fleet()
             self.ship.center_ship()
+
+            # Hide the mouse cursor
+            pygame.mouse.set_visible(False)
 
 
 if __name__ == '__main__':
