@@ -73,6 +73,9 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
@@ -208,6 +211,11 @@ class AlienInvasion:
                 # Treat this the same as if the ship got hit
                 self._ship_hit()
                 break
+
+    def _check_play_button(self, mouse_pos):
+        """Start the game when the play clicks play button"""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.game_active = True
 
 
 if __name__ == '__main__':
