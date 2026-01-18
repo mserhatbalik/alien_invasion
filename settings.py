@@ -24,6 +24,9 @@ class Settings:
 
         self.initialize_dynamic_settings()
 
+        # Scoring settings
+        self.alien_points = 50
+
         # EXERCISE 12-1
         # self.bg_color = (115, 178, 255)
 
